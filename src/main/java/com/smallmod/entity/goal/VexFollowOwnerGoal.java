@@ -2,6 +2,8 @@ package com.smallmod.entity.goal;
 
 import java.util.EnumSet;
 
+import com.smallmod.VexTaming;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -25,7 +27,7 @@ public class VexFollowOwnerGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		LivingEntity owner = this.vex.getOwner();
-		if (owner == null || !owner.isAlive() || owner.isSpectator() || this.vex.isPassenger()) {
+		if (owner == null || !owner.isAlive() || VexTaming.unableToMoveToOwner(this.vex)) {
 			return false;
 		}
 		if (this.vex.distanceToSqr(owner) < START_DIST_SQ) {
@@ -39,6 +41,7 @@ public class VexFollowOwnerGoal extends Goal {
 	public boolean canContinueToUse() {
 		return this.owner != null
 			&& this.owner.isAlive()
+			&& !VexTaming.unableToMoveToOwner(this.vex)
 			&& this.vex.getMoveControl().hasWanted()
 			&& this.vex.distanceToSqr(this.owner) > STOP_DIST_SQ;
 	}

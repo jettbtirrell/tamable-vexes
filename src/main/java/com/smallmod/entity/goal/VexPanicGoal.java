@@ -1,5 +1,7 @@
 package com.smallmod.entity.goal;
 
+import com.smallmod.VexTaming;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,7 +58,7 @@ public class VexPanicGoal extends PanicGoal {
 	@Override
 	public void tick() {
 		LivingEntity owner = this.vex.getOwner();
-		if (owner != null && this.vex.distanceToSqr(owner) >= TELEPORT_DIST_SQ) {
+		if (owner != null && !VexTaming.unableToMoveToOwner(this.vex) && this.vex.distanceToSqr(owner) >= TELEPORT_DIST_SQ) {
 			VexFollowOwnerGoal.teleportToOwner(this.vex, owner);
 		}
 	}

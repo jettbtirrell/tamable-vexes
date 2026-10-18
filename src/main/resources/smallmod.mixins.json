@@ -9,6 +9,7 @@
         "MobDespawnMixin",
         "MonsterRestMixin",
         "EntityTeamMixin",
+        "EntityAllyMixin",
         "MobLeashMixin",
         "ConduitTargetMixin"
     ],
