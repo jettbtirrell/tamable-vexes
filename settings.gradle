@@ -9,5 +9,5 @@ pluginManagement {
 	}
 }
 
-// Should match your smallmod
-rootProject.name = 'smallmod'
+// Should match your mod id
+rootProject.name = 'tamable-vexes'

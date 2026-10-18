@@ -1,27 +1,24 @@
 {
 	"schemaVersion": 1,
-	"id": "smallmod",
+	"id": "tamable_vexes",
 	"version": "${version}",
-	"name": "Small Mod",
-	"description": "A small Fabric mod.",
+	"name": "Tamable Vexes",
+	"description": "Tame vexes with a totem of undying. Tamed vexes follow, sit, fight and heal like wolves.",
 	"authors": [
 		"jettbtirrell"
 	],
 	"license": "CC0-1.0",
-	"icon": "assets/smallmod/icon.png",
+	"icon": "assets/tamable_vexes/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.smallmod.SmallMod"
-		],
-		"client": [
-			"com.smallmod.client.SmallModClient"
+			"com.tamablevexes.TamableVexes"
 		]
 	},
 	"mixins": [
-		"smallmod.mixins.json",
+		"tamable_vexes.mixins.json",
 		{
-			"config": "smallmod.client.mixins.json",
+			"config": "tamable_vexes.client.mixins.json",
 			"environment": "client"
 		}
 	],
