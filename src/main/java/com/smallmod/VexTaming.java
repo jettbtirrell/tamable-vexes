@@ -12,6 +12,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 
 public class VexTaming {
     private static final float TAMED_MAX_HEALTH = 70.0F;
+    private static final float GLOWSTONE_HEAL = 10.0F;
     private static final Class<?> RANDOM_MOVE_GOAL = findRandomMoveGoal();
 
     private static Class<?> findRandomMoveGoal() {
@@ -60,6 +63,27 @@ public class VexTaming {
             ((ServerLevel) level).sendParticles(ParticleTypes.HEART, vex.getX(), vex.getY() + 0.5, vex.getZ(), 7, 0.4, 0.4, 0.4, 0.02);
             return InteractionResult.SUCCESS_SERVER;
             
+        });
+
+        UseEntityCallback.EVENT.register((player, level, hand, entity, hitResult) -> {
+            ItemStack stack = player.getItemInHand(hand);
+
+            if (hand != InteractionHand.MAIN_HAND
+                    || !isTamedVex(entity)
+                    || !stack.is(Items.GLOWSTONE_DUST)
+                    || ((Vex) entity).getHealth() >= ((Vex) entity).getMaxHealth()) {
+                return InteractionResult.PASS;
+            }
+            if (level.isClientSide()) {
+                return InteractionResult.SUCCESS;
+            }
+
+            Vex vex = (Vex) entity;
+            stack.consume(1, player);
+            vex.heal(GLOWSTONE_HEAL);
+            ((ServerLevel) level).sendParticles(ParticleTypes.HEART, vex.getX(), vex.getY() + 0.5, vex.getZ(), 5, 0.4, 0.4, 0.4, 0.02);
+            vex.playSound(SoundEvents.GENERIC_EAT.value(), 1.0F, 1.0F);
+            return InteractionResult.SUCCESS_SERVER;
         });
 
         ServerEntityEvents.ENTITY_LOAD.register((entity, level) -> {

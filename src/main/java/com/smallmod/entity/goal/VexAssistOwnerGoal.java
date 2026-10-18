@@ -5,6 +5,13 @@ import java.util.EnumSet;
 import com.smallmod.ModAttachments;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -52,6 +59,11 @@ public class VexAssistOwnerGoal extends TargetGoal {
 	}
 
 	private static boolean isAlly(LivingEntity target, LivingEntity owner) {
-		return target instanceof Vex other && owner.equals(other.getOwner());
+		if (target instanceof Vex other) return other.getOwner() != null;
+		if (target instanceof Wolf wolf) return wolf.isTame() && owner.equals(wolf.getOwner());
+		if (target instanceof TamableAnimal pet) return pet.isTame();
+		if (target instanceof AbstractHorse horse) return horse.isTamed();
+		if (target instanceof Player player && owner instanceof Player ownerPlayer) return !ownerPlayer.canHarmPlayer(player);
+		return target instanceof Creeper || target instanceof Ghast || target instanceof ArmorStand;
 	}
 }
