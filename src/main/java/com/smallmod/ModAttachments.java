@@ -15,5 +15,13 @@ public class ModAttachments {
                     .syncWith(ByteBufCodecs.BOOL, AttachmentSyncPredicate.all())
     );
 
+    public static final AttachmentType<Boolean> SITTING_VEX = AttachmentRegistry.create(
+        SmallMod.id("sitting_vex"),
+        builder -> builder
+                    .initializer(() -> false)
+                    .persistent(Codec.BOOL)
+                    .syncWith(ByteBufCodecs.BOOL, AttachmentSyncPredicate.all())
+    );
+
     public static void register() {}
 }

@@ -18,6 +18,7 @@ public class SmallMod implements ModInitializer {
 		ModAttachments.register();
 		VexTaming.register();
 		VexSwordSwap.register();
+		VexSitting.register();
 	}
 
 	public static Identifier id(String path) {

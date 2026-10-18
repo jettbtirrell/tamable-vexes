@@ -2,6 +2,8 @@ package com.smallmod.entity.goal;
 
 import java.util.EnumSet;
 
+import com.smallmod.ModAttachments;
+
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
@@ -23,7 +25,7 @@ public class VexAssistOwnerGoal extends TargetGoal {
 	@Override
 	public boolean canUse() {
 		LivingEntity owner = this.vex.getOwner();
-		if (owner == null) return false;
+		if (owner == null || this.vex.getAttachedOrElse(ModAttachments.SITTING_VEX, false)) return false;
 
 		LivingEntity found = null;
 		if (owner.getLastHurtByMobTimestamp() != this.lastDefendStamp) {

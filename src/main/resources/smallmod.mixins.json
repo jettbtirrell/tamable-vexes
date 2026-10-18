@@ -5,7 +5,12 @@
     "mixins": [
         "VexAccessor",
         "MobAccessor",
-        "MobCanAttackMixin"
+        "MobCanAttackMixin",
+        "MobDespawnMixin",
+        "MonsterRestMixin",
+        "EntityTeamMixin",
+        "MobLeashMixin",
+        "ConduitTargetMixin"
     ],
     "injectors": {
         "defaultRequire": 1
