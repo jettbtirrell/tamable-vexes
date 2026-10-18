@@ -88,7 +88,6 @@ public class VexTaming {
             stack.consume(1, player);
             vex.setTarget(null);
             vex.setAttached(ModAttachments.TAMED_VEX, true);
-            vex.setDropChance(EquipmentSlot.MAINHAND, 1.0F);
             vex.getAttribute(Attributes.MAX_HEALTH).setBaseValue(TAMED_MAX_HEALTH);
             vex.setHealth(TAMED_MAX_HEALTH);
             ((VexAccessor) vex).tamablevexes$setHasLimitedLife(false);
@@ -150,6 +149,7 @@ public class VexTaming {
         mob.tamablevexes$getTargetSelector().addGoal(3, new VexHurtByTargetGoal(vex));
         mob.tamablevexes$getGoalSelector().removeAllGoals(RANDOM_MOVE_GOAL::isInstance);
         vex.setPersistenceRequired();
+        vex.setGuaranteedDrop(EquipmentSlot.MAINHAND);
         mob.tamablevexes$getGoalSelector().addGoal(1, new VexPanicGoal(vex, 0.75));
         mob.tamablevexes$getGoalSelector().addGoal(2, new VexSitGoal(vex));
         mob.tamablevexes$getGoalSelector().addGoal(7, new VexFollowOwnerGoal(vex));

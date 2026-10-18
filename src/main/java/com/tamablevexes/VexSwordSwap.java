@@ -28,7 +28,6 @@ public class VexSwordSwap {
             held.consume(1, player);
 
             vex.setItemSlot(EquipmentSlot.MAINHAND, newSword);
-            vex.setDropChance(EquipmentSlot.MAINHAND, 1.0F);
 
             if (!oldSword.isEmpty()) {
                 BehaviorUtils.throwItem(vex, oldSword, player.position());
