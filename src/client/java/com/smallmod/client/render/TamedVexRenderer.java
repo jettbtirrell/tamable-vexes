@@ -3,8 +3,6 @@ package com.smallmod.client.render;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import com.smallmod.ModAttachments;
 import com.smallmod.SmallMod;
 
@@ -56,17 +54,6 @@ public class TamedVexRenderer extends VexRenderer {
             clock[1] += delta * speed;
         }
         return clock[1];
-    }
-
-    @Override
-    protected void setupRotations(VexRenderState state, PoseStack poseStack, float bodyRot, float entityScale) {
-        super.setupRotations(state, poseStack, bodyRot, entityScale);
-        if (state instanceof TamedVexRenderState tamedState && tamedState.isSitting) {
-            float pivot = state.boundingBoxHeight / 2.0F / entityScale;
-            poseStack.translate(0.0F, pivot, 0.0F);
-            poseStack.rotateDegrees(Axis.ZP, 90.0F);
-            poseStack.translate(0.0F, -pivot, 0.0F);
-        }
     }
 
     @Override
